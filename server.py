@@ -15,7 +15,7 @@ app = Flask(__name__)
 app.config['APP_NAME'] = 'ApplicationName'
 app.config['DEBUG'] = True
 app.config['SECRET_KEY'] = 'afhkhu2[]=426574hjksbsdhkj24787864329867324mm...//'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.sqlite'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.sqlite'
 app.config['JWT_EXPIRATION_DELTA'] = timedelta(minutes=60)
 app.config['SECURITY_REGISTERABLE'] = True
 app.config['SECURITY_RECOVERABLE'] = True
@@ -48,7 +48,6 @@ def auth_func(**kw):
 @app.route('/')
 @login_required
 def home():
-	print(request.headers)
 	return render_template('index.html')
 
 @app.route('/logout/')
@@ -90,9 +89,8 @@ def bootstrap_app():
 		if db.session.query(User).count() == 0:
 			create_test_models();
 
-with app.app_context():
-	init_app()
-
 # Start server  ===============================================================
 if __name__ == '__main__':		
+	with app.app_context():
+		init_app()
 	app.run()

@@ -9,6 +9,8 @@
 	<body>
 		{% include "_nav.html" %}
 
+		{{security.current_user}}
+
 		<section class="content">
 			{% block content %}{% endblock %}
 		</section>
