@@ -1,8 +1,7 @@
 from flask import Flask, render_template, request, url_for, redirect
 from flask.ext.security import SQLAlchemyUserDatastore, Security, \
 		login_required, current_user, logout_user
-from flask.ext.restless import APIManager
-from flask.ext.restless import ProcessingException
+from flask.ext.restless import APIManager, ProcessingException
 from flask.ext.login import user_logged_in
 from datetime import timedelta
 from flask_jwt import JWT, jwt_required

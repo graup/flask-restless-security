@@ -13,6 +13,13 @@ Setup
 - Run `pip install -r requirements.txt`
 - Start server using `python server.py`
 
+
+**API auth**
+
+- POST /auth {'username': '', 'password': ''}
+- Returns JSON with {'token':''}  
+- Then request from API using header 'Authorization: Bearer $token'
+
 **Tests**
 
 - Run tests using `python test.py`
