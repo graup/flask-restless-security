@@ -16,8 +16,6 @@ class FlaskTestCase(unittest.TestCase):
 		app.config['TESTING'] = True
 		app.config['DEBUG'] = True
 		self.client = app.test_client()
-		self._ctx = app.test_request_context()
-		self._ctx.push()
 
 		with app.app_context():
 			init_app()
@@ -25,8 +23,6 @@ class FlaskTestCase(unittest.TestCase):
 			db.session.commit()
 
 	def tearDown(self):
-		if self._ctx is not None:
-			self._ctx.pop()
 		with app.app_context():
 			db.session.remove()
 			db.drop_all()
