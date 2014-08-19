@@ -11,10 +11,7 @@ from models import User, Role, SomeStuff
 
 class FlaskTestCase(unittest.TestCase):
 	def setUp(self):
-		self.db_fd, self.db_path = tempfile.mkstemp()
-		app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + self.db_path
-		app.config['TESTING'] = True
-		app.config['DEBUG'] = True
+		app.config.from_object('config.TestingConfig')
 		self.client = app.test_client()
 
 		with app.app_context():
@@ -26,8 +23,6 @@ class FlaskTestCase(unittest.TestCase):
 		with app.app_context():
 			db.session.remove()
 			db.drop_all()
-			os.close(self.db_fd)
-        	os.unlink(self.db_path)
 
 	def _post(self, route, data=None, content_type=None, follow_redirects=True, headers=None):
 		content_type = content_type or 'application/x-www-form-urlencoded'
