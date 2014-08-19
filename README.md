@@ -1,18 +1,24 @@
-This is a simple bootstrapped Flask Website + API using Flask-Restless, Flask-Security, SQLAlchemy and
-JWT tokens for authentication.
+This is a simple bootstrapped [Flask](http://flask.pocoo.org/) website + API using:
 
-Credits go to Nic for providing the basic idea:
+- [Flask-Restless](https://flask-restless.readthedocs.org/en/latest/) (API)
+- [Flask-Security](https://pythonhosted.org/Flask-Security/) (Authentication)
+- [Flask-JWT](https://pythonhosted.org/Flask-JWT/) (API authentication)
+- [SQLAlchemy](http://www.sqlalchemy.org/) (ORM)
+
+Plus stubs for
+
+- Templates
+- Testing
+
+I got the basic idea from Nic:
 http://stackoverflow.com/a/24258886/700283
-
-I changed the structure quite a bit and added stubs for testing and templates.
 
 Setup
 =====
 
-- Setup vitualenv
+- Create and activate a vitualenv
 - Run `pip install -r requirements.txt`
 - Start server using `python server.py`
-
 
 **API auth**
 
