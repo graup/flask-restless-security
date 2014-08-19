@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, url_for, redirect
 from flask.ext.security import SQLAlchemyUserDatastore, Security, \
 		login_required, current_user, logout_user
-from flask.ext.security.utils import encrypt_password
+from flask.ext.security.utils import encrypt_password, verify_password
 from flask.ext.restless import APIManager, ProcessingException
 from flask.ext.login import user_logged_in
 from flask_jwt import JWT, jwt_required
@@ -21,7 +21,7 @@ jwt = JWT(app)
 @jwt.authentication_handler
 def authenticate(username, password):
 	user = user_datastore.find_user(email=username)
-	if username == user.email and password == user.password:
+	if username == user.email and verify_password(password, user.password):
 		return user
 	return None
 

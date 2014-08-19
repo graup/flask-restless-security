@@ -8,6 +8,7 @@ class Config(object):
 	APP_NAME = 'ApplicationName'
 	SECRET_KEY = 'add_secret'
 	JWT_EXPIRATION_DELTA = timedelta(days=30)
+	JWT_AUTH_URL_RULE = '/api/v1/auth'
 	SECURITY_REGISTERABLE = True
 	SECURITY_RECOVERABLE = True
 	SECURITY_TRACKABLE = True
