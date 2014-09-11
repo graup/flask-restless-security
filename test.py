@@ -51,12 +51,12 @@ class FlaskTestCase(unittest.TestCase):
 
 class ViewsTest(FlaskTestCase):
 	def test_protected_page(self):
-		rv = self.client.get('/')
+		rv = self.client.get('/mypage')
 		self.assertIn('Redirecting...', rv.data)
 
 		self._login()
 
-		rv = self.client.get('/')
+		rv = self.client.get('/mypage')
 		self.assertIn('It works', rv.data)
 
 class APITest(FlaskTestCase):

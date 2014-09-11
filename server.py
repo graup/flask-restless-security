@@ -4,10 +4,12 @@ from flask.ext.security import SQLAlchemyUserDatastore, Security, \
 from flask.ext.security.utils import encrypt_password, verify_password
 from flask.ext.restless import APIManager, ProcessingException
 from flask.ext.login import user_logged_in
+from flask.ext.admin import Admin
 from flask_jwt import JWT, jwt_required
 
 from database import db
 from models import User, Role, SomeStuff, user_datastore
+from admin import AdminModelView, UserModelView, LogoutView, LoginView
 
 # Configuration  ==============================================================
 app = Flask(__name__)
@@ -32,9 +34,13 @@ def load_user(payload):
 
 # Views  ======================================================================
 @app.route('/')
-@login_required
 def home():
 	return render_template('index.html')
+
+@app.route('/mypage')
+@login_required
+def mypage():
+	return render_template('mypage.html')
 
 @app.route('/logout')
 def log_out():
@@ -58,6 +64,14 @@ apimanager.create_api(SomeStuff,
 	preprocessors=dict(GET_SINGLE=[auth_func], GET_MANY=[auth_func]),
 	collection_name='protected_stuff',
 	include_columns=['data1', 'data2', 'user_id'])
+
+# Flask-Admin  ================================================================
+admin = Admin(app)
+admin.add_view(UserModelView(User, db.session, category='Auth'))
+admin.add_view(AdminModelView(Role, db.session, category='Auth'))
+admin.add_view(AdminModelView(SomeStuff, db.session))
+admin.add_view(LogoutView(name='Logout', endpoint='logout'))
+admin.add_view(LoginView(name='Login', endpoint='login'))
 
 # Bootstrap  ==================================================================
 def init_app():

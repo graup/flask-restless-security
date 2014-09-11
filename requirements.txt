@@ -1,3 +1,4 @@
 Flask-Restless==0.14.0
 Flask-JWT==0.2.0
 Flask-Security==1.7.3
+Flask-Admin==1.0.8
