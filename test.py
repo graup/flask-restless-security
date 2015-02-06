@@ -1,5 +1,6 @@
 import os
-from server import app, init_app, user_datastore
+from application import app
+from server import init_app, user_datastore
 from database import db
 import unittest
 import tempfile

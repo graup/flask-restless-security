@@ -1,36 +1,19 @@
-from flask import Flask, render_template, request, url_for, redirect
+from flask import render_template, request, url_for, redirect
 from flask.ext.security import SQLAlchemyUserDatastore, Security, \
 		login_required, current_user, logout_user
 from flask.ext.security.utils import encrypt_password, verify_password
 from flask.ext.restless import APIManager, ProcessingException
 from flask.ext.login import user_logged_in
-from flask.ext.admin import Admin
 from flask_jwt import JWT, jwt_required
 
 from database import db
-from models import User, Role, SomeStuff, user_datastore
-from admin import AdminModelView, UserModelView, LogoutView, LoginView
-
-# Configuration  ==============================================================
-app = Flask(__name__)
-app.config.from_object('config.DevelopmentConfig')
+from application import app
+from models import User, SomeStuff, user_datastore
+from admin import init_admin
 
 # Setup Flask-Security  =======================================================
 security = Security(app, user_datastore)
 
-# JWT Token authentication  ===================================================
-jwt = JWT(app)
-@jwt.authentication_handler
-def authenticate(username, password):
-	user = user_datastore.find_user(email=username)
-	if user and username == user.email and verify_password(password, user.password):
-		return user
-	return None
-
-@jwt.user_handler
-def load_user(payload):
-	user = user_datastore.find_user(id=payload['user_id'])
-	return user
 
 # Views  ======================================================================
 @app.route('/')
@@ -46,6 +29,22 @@ def mypage():
 def log_out():
 	logout_user()
 	return redirect(request.args.get('next') or '/')
+
+
+# JWT Token authentication  ===================================================
+jwt = JWT(app)
+@jwt.authentication_handler
+def authenticate(username, password):
+	user = user_datastore.find_user(email=username)
+	if user and username == user.email and verify_password(password, user.password):
+		return user
+	return None
+
+@jwt.user_handler
+def load_user(payload):
+	user = user_datastore.find_user(id=payload['user_id'])
+	return user
+
 
 # Flask-Restless API  =========================================================
 @jwt_required()
@@ -65,13 +64,10 @@ apimanager.create_api(SomeStuff,
 	collection_name='protected_stuff',
 	include_columns=['id', 'data1', 'data2', 'user_id'])
 
-# Flask-Admin  ================================================================
-admin = Admin(app)
-admin.add_view(UserModelView(User, db.session, category='Auth'))
-admin.add_view(AdminModelView(Role, db.session, category='Auth'))
-admin.add_view(AdminModelView(SomeStuff, db.session))
-admin.add_view(LogoutView(name='Logout', endpoint='logout'))
-admin.add_view(LoginView(name='Login', endpoint='login'))
+
+# Setup Admin  ================================================================
+init_admin()
+
 
 # Bootstrap  ==================================================================
 def init_app():
@@ -92,6 +88,7 @@ def bootstrap_app():
 	if not app.config['TESTING']:
 		if db.session.query(User).count() == 0:
 			create_test_models();
+
 
 # Start server  ===============================================================
 if __name__ == '__main__':		
