@@ -23,7 +23,7 @@ jwt = JWT(app)
 @jwt.authentication_handler
 def authenticate(username, password):
 	user = user_datastore.find_user(email=username)
-	if username == user.email and verify_password(password, user.password):
+	if user and username == user.email and verify_password(password, user.password):
 		return user
 	return None
 
@@ -57,13 +57,13 @@ apimanager.create_api(SomeStuff,
 	methods=['GET', 'POST', 'DELETE', 'PUT'],
 	url_prefix='/api/v1',
 	collection_name='free_stuff',
-	include_columns=['data1', 'data2', 'user_id'])
+	include_columns=['id', 'data1', 'data2', 'user_id'])
 apimanager.create_api(SomeStuff,
 	methods=['GET', 'POST', 'DELETE', 'PUT'],
 	url_prefix='/api/v1',
 	preprocessors=dict(GET_SINGLE=[auth_func], GET_MANY=[auth_func]),
 	collection_name='protected_stuff',
-	include_columns=['data1', 'data2', 'user_id'])
+	include_columns=['id', 'data1', 'data2', 'user_id'])
 
 # Flask-Admin  ================================================================
 admin = Admin(app)
