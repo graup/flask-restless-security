@@ -92,6 +92,7 @@ def bootstrap_app():
 
 # Start server  ===============================================================
 if __name__ == '__main__':		
-	with app.app_context():
-		init_app()
-	app.run()
+    db.init_app(app)
+    with app.app_context():
+        db.create_all()
+    app.run()
