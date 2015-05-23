@@ -3,8 +3,7 @@ body, html {
 }
 body {
 	font-family: sans-serif;
-	border-top: 4px solid #679;
-	padding: 2em 4em;
+	padding: 50px;
 }
 
 /* abstract */
@@ -16,19 +15,22 @@ body {
 .nav li {
 	display: inline-block;
 }
-.nav li a {
-	display: block;
-	padding: .25em .5em;
-}
-
-.nav-account {
-	float: right;
-}
 
 /* layout */
 nav {
-	background-color: #eee;
+	background-color: #f0f0f0;
+	margin: -50px -50px 50px;
 }
 nav a {
 	text-decoration: none;
+}
+nav .nav li a {
+	display: block;
+	padding: 1em;
+}
+nav .nav li a:hover {
+	background-color: rgba(0,0,0,0.05);
+}
+.nav-account {
+	float: right;
 }
