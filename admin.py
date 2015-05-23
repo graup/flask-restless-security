@@ -8,6 +8,7 @@ from application import app
 from database import db
 from models import User, Role, SomeStuff
 
+
 class LogoutView(BaseView):
     @expose('/')
     def index(self):
@@ -15,7 +16,8 @@ class LogoutView(BaseView):
         return redirect('/admin')
 
     def is_visible(self):
-    	return current_user.is_authenticated()
+        return current_user.is_authenticated()
+
 
 class LoginView(BaseView):
     @expose('/')
@@ -24,14 +26,17 @@ class LoginView(BaseView):
         return redirect('/login?next=/admin')
 
     def is_visible(self):
-    	return not current_user.is_authenticated()
+        return not current_user.is_authenticated()
+
 
 class AdminModelView(ModelView):
     def is_accessible(self):
         return current_user.is_authenticated()
 
+
 class UserModelView(AdminModelView):
-	column_list = ('email', 'active', 'last_login_at', 'roles', )
+    column_list = ('email', 'active', 'last_login_at', 'roles', )
+
 
 def init_admin():
     admin = Admin(app)
