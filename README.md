@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/graup/flask-restless-security.svg?branch=master)](https://travis-ci.org/graup/flask-restless-security)
+
 This is a starting point for a [Flask](http://flask.pocoo.org/) website + API using:
 
 - [Flask-Restless](https://flask-restless.readthedocs.org/en/latest/) (API)
