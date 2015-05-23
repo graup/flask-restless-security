@@ -1,6 +1,6 @@
 import os
 from application import app
-from server import init_app, user_datastore
+from server import user_datastore
 from database import db
 import unittest
 import tempfile
@@ -18,8 +18,9 @@ class FlaskTestCase(unittest.TestCase):
         app.config.from_object('config.TestingConfig')
         self.client = app.test_client()
 
+        db.init_app(app)
         with app.app_context():
-            init_app()
+            db.create_all()
             user_datastore.create_user(email='test', password=encrypt_password('test'))
             db.session.commit()
 
