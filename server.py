@@ -52,7 +52,7 @@ def load_user(payload):
 # Flask-Restless API  =========================================================
 @jwt_required()
 def auth_func(**kw):
-    return True
+    pass
 
 
 apimanager = APIManager(app, flask_sqlalchemy_db=db)
