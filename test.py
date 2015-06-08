@@ -129,6 +129,13 @@ class APITest(FlaskTestCase):
         data = json.loads(rv.data.decode())
         self.assertEqual(data['num_results'], 1)
 
+        # Post another object and get it back
+        rv = self._post('/api/v1/protected_stuff', data=json.dumps({'data1': 2, 'data2': ''}))
+        self.assertEqual(201, rv.status_code)
+        rv = self._get('/api/v1/protected_stuff/2')
+        data = json.loads(rv.data.decode())
+        self.assertEqual(data['data1'], 2)
+
 
 if __name__ == '__main__':
     unittest.main()
