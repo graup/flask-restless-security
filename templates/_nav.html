@@ -1,7 +1,7 @@
 <nav>
 	{% if security.registerable or security.recoverable or security.confirmabled %}
 		<ul class="nav nav-account">
-			{% if current_user.is_authenticated() %}
+			{% if current_user.is_authenticated %}
 				<li><a href="{{ url_for_security('logout') }}">Logout</a></li>
 			{% else %}
 				<li><a href="{{ url_for_security('login') }}">Login</a></li>
