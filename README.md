@@ -34,8 +34,8 @@ Setup
 **API auth**
 
 - POST /api/v1/auth {'username': '', 'password': ''}
-- Returns JSON with {'token':''}  
-- Then request from API using header 'Authorization: Bearer $token'
+- Returns JSON with {'access_token':''}  
+- Then request from API using header 'Authorization: JWT $token'
 
 **Tests**
 
