@@ -15,6 +15,7 @@ class Config(object):
     SECURITY_TRACKABLE = True
     SECURITY_PASSWORD_HASH = 'sha512_crypt'
     SECURITY_PASSWORD_SALT = 'add_salt'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
 class ProductionConfig(Config):

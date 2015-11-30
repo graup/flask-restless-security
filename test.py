@@ -93,7 +93,7 @@ class APITest(FlaskTestCase):
     def _get(self, route, data=None, content_type=None, follow_redirects=True, headers=None):
         content_type = content_type or 'application/json'
         if hasattr(self, 'token'):
-            headers = headers or {'Authorization': 'Bearer ' + self.token}
+            headers = headers or {'Authorization': 'JWT ' + self.token}
         return self.client.get(route, data=data, follow_redirects=follow_redirects, content_type=content_type,
                                headers=headers)
 
@@ -107,16 +107,17 @@ class APITest(FlaskTestCase):
     def test_auth(self):
         # Get auth token with invalid credentials
         auth_resp = self._auth('not', 'existing')
-        self.assertEqual(400, auth_resp['status_code'])
+        self.assertEqual(401, auth_resp['status_code'])
 
         # Get auth token with valid credentials
         auth_resp = self._auth('test', 'test')
-        self.assertIn(u'token', auth_resp)
+        self.assertIn(u'access_token', auth_resp)
 
-        self.token = auth_resp['token']
+        self.token = auth_resp['access_token']
 
         # Get empty collection
         rv = self._get('/api/v1/protected_stuff')
+        self.assertEqual(200, rv.status_code)
         data = json.loads(rv.data.decode())
         self.assertEqual(data['num_results'], 0)
 

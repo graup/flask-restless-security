@@ -12,7 +12,6 @@ from admin import init_admin
 # Setup Flask-Security  =======================================================
 security = Security(app, user_datastore)
 
-
 # Views  ======================================================================
 @app.route('/')
 def home():
@@ -32,10 +31,6 @@ def log_out():
 
 
 # JWT Token authentication  ===================================================
-jwt = JWT(app)
-
-
-@jwt.authentication_handler
 def authenticate(username, password):
     user = user_datastore.find_user(email=username)
     if user and username == user.email and verify_password(password, user.password):
@@ -43,11 +38,12 @@ def authenticate(username, password):
     return None
 
 
-@jwt.user_handler
 def load_user(payload):
-    user = user_datastore.find_user(id=payload['user_id'])
+    user = user_datastore.find_user(id=payload['identity'])
     return user
 
+
+jwt = JWT(app, authenticate, load_user)
 
 # Flask-Restless API  =========================================================
 @jwt_required()
