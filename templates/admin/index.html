@@ -2,7 +2,7 @@
 
 {% block body %}
 
-	{% if current_user.is_authenticated() %}
+	{% if current_user.is_authenticated %}
 		<p>Welcome to the admin.</p>
 		<p><a href="{{ url_for_security('logout') }}">Logout</a></p>
 	{% else %}
