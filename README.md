@@ -37,6 +37,15 @@ Setup
 - Returns JSON with {'access_token':''}  
 - Then request from API using header 'Authorization: JWT $token'
 
+__Example usage:__<pre><code>import requests 
+url = "http://127.0.0.1:5000/api/v1/protected_stuff"	
+headers = {
+			'authorization': "__JWT__ 31fef5cf-46b2-501c-277b-aee488d4f335"
+			}		
+response = requests.request("GET", url, headers=headers)	
+</code></pre>
+
+
 **Tests**
 
 - Run tests using `python test.py`
