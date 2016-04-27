@@ -16,7 +16,7 @@ class LogoutView(BaseView):
         return redirect('/admin')
 
     def is_visible(self):
-        return current_user.is_authenticated()
+        return current_user.is_authenticated
 
 
 class LoginView(BaseView):
@@ -26,12 +26,12 @@ class LoginView(BaseView):
         return redirect('/login?next=/admin')
 
     def is_visible(self):
-        return not current_user.is_authenticated()
+        return not current_user.is_authenticated
 
 
 class AdminModelView(ModelView):
     def is_accessible(self):
-        return current_user.is_authenticated()
+        return current_user.is_authenticated
 
 
 class UserModelView(AdminModelView):
