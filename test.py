@@ -7,9 +7,9 @@ import tempfile
 import re
 import json
 
-from flask.ext.security.utils import encrypt_password
-from flask.ext.security import current_user
-from flask.ext.security.utils import login_user
+from flask_security.utils import encrypt_password
+from flask_security import current_user
+from flask_security.utils import login_user
 from models import User, Role, SomeStuff
 
 

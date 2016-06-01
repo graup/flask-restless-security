@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect
-from flask.ext.security import Security, logout_user, login_required
-from flask.ext.security.utils import encrypt_password, verify_password
-from flask.ext.restless import APIManager
+from flask_security import Security, logout_user, login_required
+from flask_security.utils import encrypt_password, verify_password
+from flask_restless import APIManager
 from flask_jwt import JWT, jwt_required
 
 from database import db

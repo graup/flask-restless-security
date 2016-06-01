@@ -1,8 +1,8 @@
-from flask.ext.admin.contrib.sqla import ModelView
-from flask.ext.admin import Admin, BaseView, expose
-from flask.ext.security import current_user
+from flask_admin.contrib.sqla import ModelView
+from flask_admin import Admin, BaseView, expose
+from flask_security import current_user
 from flask import redirect
-from flask.ext.security import logout_user
+from flask_security import logout_user
 
 from application import app
 from database import db
