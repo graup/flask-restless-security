@@ -16,6 +16,9 @@ Plus stubs for
 I got the basic idea from Nic:
 http://stackoverflow.com/a/24258886/700283
 
+The goal here is simple code. You can read through everything in a short time 
+and get a good idea of how you could put these pieces together.
+
 Setup
 =====
 

@@ -2,5 +2,5 @@ Flask-Restless==0.16.0
 # 0.17.0 is broken https://github.com/jfinkels/flask-restless/issues/409
 Flask-JWT==0.3.2
 Flask-Security==1.7.5
-Flask-Admin==1.4.0
-Flask-SQLAlchemy==2.1
+Flask-Admin==1.5.1
+Flask-SQLAlchemy==2.3.2
